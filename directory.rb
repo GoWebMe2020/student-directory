@@ -19,10 +19,10 @@ def print_header
 end
 
 def print(names)
-    names.each_with_index do |student, index|
-        if student[:name].length < 12
-            puts "#{index + 1}. #{student[:name]} #{student[:cohort]} cohort"
-        end
+    count = 0
+    while count != names.length
+        puts "#{names[0][:name]} of the #{names[0][:cohort]} cohort"
+        count += 1
     end
 end
 
