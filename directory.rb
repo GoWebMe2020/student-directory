@@ -1,28 +1,11 @@
-# Put students into an array
-# students = [
-#     {name: "Dr. Hannibal Lecter", cohort: :november},
-#     {name: 'Darth Vader', cohort: :november},
-#     {name: 'Nurse Ratched', cohort: :november},
-#     {name: 'Michael Corleone', cohort: :november},
-#     {name: 'Alex DeLarge', cohort: :november},
-#     {name: 'The Wicked Witch of the West', cohort: :november},
-#     {name: 'Terminator', cohort: :november},
-#     {name: 'Freddy Kruger', cohort: :november},
-#     {name: 'The Joker', cohort: :november},
-#     {name: 'Joffrey Batatheon', cohort: :november},
-#     {name: 'Norman Bates', cohort: :november},
-# ]
-
 def print_header
     puts "The students of Villians Academy"
     puts "-------------"
 end
 
 def print(names)
-    count = 0
-    while count != names.length
-        puts "#{names[0][:name]} of the #{names[0][:cohort]} cohort"
-        count += 1
+    names.each_with_index do |student, index|
+        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
     end
 end
 
@@ -31,18 +14,22 @@ def print_footer(students)
 end
 
 def input_students
-    puts "Please enter the names of the students"
-    puts "To finish, just hit return twice"
     # create an empty array
     students = []
-    # get the first name
+    puts "Please enter the names of the students"
+    puts "To finish, just hit return four times"
     name = gets.chomp
     # while the name is not empty, repeat this code
     while !name.empty? do
-        # add the student hass to the array
-        students << {name: name, cohort: :november}
+        puts "What is the students hobby"
+        hobby = gets.chomp
+        puts "What is the students age"
+        age = gets.chomp
+        # add the student hash to the array
+        students << {name: name, cohort: :november, hobby: hobby, age: age}
         puts "Now we have #{students.count} students"
         # get anothername from the user
+        puts "Enter another student or move on"
         name = gets.chomp
     end
     # return the array of students
