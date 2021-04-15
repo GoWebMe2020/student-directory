@@ -4,8 +4,8 @@ def print_header
 end
 
 def print(names)
-    names.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
+    names.each do |student|
+        puts student[:name].center(20, "-")
     end
 end
 
@@ -21,12 +21,12 @@ def input_students
     name = gets.chomp
     # while the name is not empty, repeat this code
     while !name.empty? do
-        puts "What is the students hobby"
-        hobby = gets.chomp
-        puts "What is the students age"
-        age = gets.chomp
+        #puts "What is the students hobby"
+        #hobby = gets.chomp
+        #puts "What is the students age"
+        #age = gets.chomp
         # add the student hash to the array
-        students << {name: name, cohort: :november, hobby: hobby, age: age}
+        students << {name: name, cohort: :november}
         puts "Now we have #{students.count} students"
         # get anothername from the user
         puts "Enter another student or move on"
