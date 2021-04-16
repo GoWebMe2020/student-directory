@@ -1,11 +1,11 @@
 def print_header
     puts "The students of Villians Academy"
-    puts "-------------"
+    puts "--------------------------------"
 end
 
 def print(names)
-    names.each do |student|
-        puts student[:name].center(20, "-")
+    names.each_with_index do |student, index|
+        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
     end
 end
 
@@ -13,22 +13,68 @@ def print_footer(students)
     puts "Overall, we have #{students.count} great students"
 end
 
+def print_by_cohort(names)
+    puts "Which cohort are you looking for?"
+    cohort = gets.chomp.capitalize
+    month = []
+    names.map do |x|
+        if x[:cohort] == cohort
+            month.push(x)
+        end
+    end
+    month.each_with_index do |student, index|
+        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
+    end
+    
+end
+
+def print_by_hobby(names)
+    puts "Which hobbies are you looking for?"
+    hobby = gets.chomp
+    hobbies = []
+    names.map do |x|
+        if x[:hobby] == hobby
+            hobbies.push(x)
+        end
+    end
+    hobbies.each_with_index do |student, index|
+        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
+    end
+    
+end
+
 def input_students
     # create an empty array
     students = []
+    # provide instructions
     puts "Please enter the names of the students"
-    puts "To finish, just hit return four times"
-    name = gets.chomp
+    puts "To finish, just leave name blank and hit enter"
+    # get name
+    name = gets.chomp.capitalize
     # while the name is not empty, repeat this code
     while !name.empty? do
-        #puts "What is the students hobby"
-        #hobby = gets.chomp
-        #puts "What is the students age"
-        #age = gets.chomp
+        # get age
+        puts "What is the students age"
+        age = gets.chomp
+        if age == ""
+            age = "Unknown"
+        end
+        # get hobby
+        puts "What is the students hobby"
+        hobby = gets.chomp.downcase
+        if hobby == ""
+            hobby = "none"
+        end
+        # get cohort
+        puts "In which cohort is the student"
+        cohort = gets.chomp.capitalize
+        if cohort == ""
+            cohort = "unknown"
+        end
         # add the student hash to the array
-        students << {name: name, cohort: :november}
+        students << {name: name, cohort: cohort, hobby: hobby, age: age}
         puts "Now we have #{students.count} students"
-        # get anothername from the user
+        # get anothername from the user and loop
         puts "Enter another student or move on"
         name = gets.chomp
     end
@@ -36,8 +82,12 @@ def input_students
     students
 end
 
-# Nothing happens until we call the methods
+# create a local variable with the output from input_students
 students = input_students
+
+# call the methods
 print_header
 print(students)
 print_footer(students)
+print_by_cohort(students)
+print_by_hobby(students)
