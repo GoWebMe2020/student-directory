@@ -50,24 +50,24 @@ def input_students
     puts "Please enter the names of the students"
     puts "To finish, just leave name blank and hit enter"
     # get name
-    name = gets.chomp.capitalize
+    name = String.new(gets).strip.capitalize
     # while the name is not empty, repeat this code
     while !name.empty? do
         # get age
         puts "What is the students age"
-        age = gets.chomp
+        age = String.new(gets).strip
         if age == ""
             age = "Unknown"
         end
         # get hobby
         puts "What is the students hobby"
-        hobby = gets.chomp.downcase
+        hobby = String.new(gets).strip.downcase
         if hobby == ""
             hobby = "none"
         end
         # get cohort
         puts "In which cohort is the student"
-        cohort = gets.chomp.capitalize
+        cohort = String.new(gets).strip.capitalize
         if cohort == ""
             cohort = "unknown"
         end
@@ -80,7 +80,7 @@ def input_students
         end
         # get anothername from the user and loop
         puts "Enter another student or move on"
-        name = gets.chomp
+        name = String.new(gets).strip
     end
     # return the array of students
     students
