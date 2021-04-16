@@ -73,7 +73,11 @@ def input_students
         end
         # add the student hash to the array
         students << {name: name, cohort: cohort, hobby: hobby, age: age}
-        puts "Now we have #{students.count} students"
+        if students.count <= 1
+            puts "Now we have #{students.count} student"
+        else
+            puts "Now we have #{students.count} students"
+        end
         # get anothername from the user and loop
         puts "Enter another student or move on"
         name = gets.chomp
