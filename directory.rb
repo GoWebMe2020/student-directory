@@ -1,97 +1,100 @@
+# students instance variable
+@students = []
+
+# print the header of the students list
 def print_header
     puts "The students of Villians Academy"
     puts "--------------------------------"
+    puts ""
 end
 
-def print(names)
-    names.each_with_index do |student, index|
+# prints the students list from the instance variable array
+def print_student_list
+    @students.each_with_index do |student, index|
         puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
     end
 end
 
-def print_footer(students)
-    puts "Overall, we have #{students.count} great students"
-end
-
-def print_by_cohort(names)
-    puts "Which cohort are you looking for?"
-    cohort = gets.chomp.capitalize
-    month = []
-    names.map do |x|
-        if x[:cohort] == cohort
-            month.push(x)
-        end
-    end
-    month.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
-    end
-    
-end
-
-def print_by_hobby(names)
-    puts "Which hobbies are you looking for?"
-    hobby = gets.chomp
-    hobbies = []
-    names.map do |x|
-        if x[:hobby] == hobby
-            hobbies.push(x)
-        end
-    end
-    hobbies.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} of the #{student[:cohort]} cohort ,age #{student[:age]}. Likes #{student[:hobby]}."
-    end
-    
+# prints the footer with the total number of students.
+def print_footer
+    puts ""
+    puts "Overall, we have #{@students.count} great students"
+    puts ""
 end
 
 def input_students
-    # create an empty array
-    students = []
-    # provide instructions
+    # provide instructions to input student details
     puts "Please enter the names of the students"
     puts "To finish, just leave name blank and hit enter"
     # get name
-    name = String.new(gets).strip.capitalize
+    name = gets.chomp.strip.capitalize
     # while the name is not empty, repeat this code
     while !name.empty? do
         # get age
         puts "What is the students age"
-        age = String.new(gets).strip
+        age = gets.chomp.strip
         if age == ""
             age = "Unknown"
         end
         # get hobby
         puts "What is the students hobby"
-        hobby = String.new(gets).strip.downcase
+        hobby = gets.chomp.strip.downcase
         if hobby == ""
             hobby = "none"
         end
         # get cohort
         puts "In which cohort is the student"
-        cohort = String.new(gets).strip.capitalize
+        cohort = gets.chomp.strip.capitalize
         if cohort == ""
             cohort = "unknown"
         end
-        # add the student hash to the array
-        students << {name: name, cohort: cohort, hobby: hobby, age: age}
-        if students.count <= 1
-            puts "Now we have #{students.count} student"
+        # add the student hash to the instance array
+        @students << {name: name, cohort: cohort, hobby: hobby, age: age}
+        if @students.count <= 1
+            puts "Now we have #{@students.count} student"
         else
-            puts "Now we have #{students.count} students"
+            puts "Now we have #{@students.count} students"
         end
         # get anothername from the user and loop
         puts "Enter another student or move on"
-        name = String.new(gets).strip
+        name = gets.chomp
     end
-    # return the array of students
-    students
 end
 
-# create a local variable with the output from input_students
-students = input_students
+def print_menu
+    # 1. print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit" # 9 because we'll be adding more lines
+end
 
-# call the methods
-print_header
-print(students)
-print_footer(students)
-print_by_cohort(students)
-print_by_hobby(students)
+# print the complete list of students with header and footer
+def show_students
+    print_header
+    print_student_list
+    print_footer
+end
+
+# user selection process
+def process(selection)
+    case selection
+        when "1"
+            input_students
+        when "2"
+            show_students
+        when "9"
+            exit # this will cause the program to terminate
+        else
+            puts "I don't know what you mean, try again"
+    end
+end
+
+# start the selection process method
+def interactive_menu
+    loop do
+        print_menu
+        process(gets.chomp)
+    end
+end
+
+interactive_menu
